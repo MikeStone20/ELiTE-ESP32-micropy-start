@@ -12,7 +12,7 @@ Steps:
   2. After signing in. Click on ***Go to console*** in the top right.
   3. Webpage should redirect to homepage. Click ***Create a project*** and come up with an appropriate and unique name for your project. Click ***Continue***.
   4. Optional: Enable/Disable gooogle analytics. Click ***Continue***
-  5. Expand the left-toolbar by clicking the arrow.
+  5. Expand the left-toolbar by clicking the arrow. ![screenshot of toolbar](https://github.com/MikeStone20/ELiTE-ESP32-micropy-start/blob/main/expand_toolbar.png)
   6. Once expanded, click ***Build** and then ***Real Time Database***.
   7. Click ***Create Database*** and make sure Database location is set to ***United States (us-central1)***.
   8. By default, the database is going to start in ***locked mode***. Make sure to check ***Start in test mode*** instead.
