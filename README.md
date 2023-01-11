@@ -51,7 +51,7 @@ else:
 ```
 
 ### synchronize_date_time
-A helper method that synchronizes the date and time of your micro controller. It takes a single string param ***city*** which is the name of the city your controller is in. It uses an [api]() to get the current time. This method ***will not*** work if your device is not connected to the internet.
+A helper method that synchronizes the date and time of your micro controller. It takes a single string param ***city*** which is the name of the city your controller is in. It uses an [api](https://worldtimeapi.org/) to get the current time. This method ***will not*** work if your device is not connected to the internet.
 
 On success, the method returns a synchronized RTC (real time clock) object. On failure it will return ***None***.
 
