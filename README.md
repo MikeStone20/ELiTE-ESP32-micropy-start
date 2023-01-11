@@ -64,7 +64,7 @@ rtc = helepr.synchronize_date_time('New_York')
 
 if rtc is None:
   # Sync failed :(
- else:
+else:
   # Sync succeeded :)
 ```
 
