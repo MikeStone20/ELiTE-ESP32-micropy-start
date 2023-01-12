@@ -1,7 +1,16 @@
-# ELiTE-ESP32-micropy-start
-A guide to setting up esp32 with micropython and populating sensor data into database.
+# Index
+A guide to setting up an ESP32 with micropython and populating sensor data into Firebase.
+
+  - [Setting up Thonny](#setting-up-thonny)
+  - [Setting up Firebase](#setting-up-firebase-account)
+  - [Helper.py Documentation](#helper-file-documentation)
+  - [Main.py Documentation](#main-file-documentation)
+  - [Adding Sensor Drivers](#adding-a-sensor-driver)
+  - [Storing into Firebase](#storing-into-firebase)
+  - [Retrieving from Firebase](#getting-your-data-from-firebase)
 
 # Setting up Thonny
+Please follow the instructions for setting up Thonny on your machine [here](https://randomnerdtutorials.com/getting-started-thonny-micropython-python-ide-esp32-esp8266/). ***NOTE: If your micro-controller has already been flashed only do steps 1 and 2 from "Flashing MicroPython Firmware using Thonny IDE"*** . For rasp pi users, Thonny should already be installed so scroll down to the ***Flashing MicroPython Firmware using Thonny IDE*** and do steps 1 and 2 if your micro-controller has already been flashed.
 
 # Setting up Firebase account
 Firebase is a cloud platform that has specialized tools that help developers grow and build their apps.
@@ -18,7 +27,7 @@ Steps:
   8. By default, the database is going to start in ***locked mode***. Make sure to check ***Start in test mode*** instead.
   9. That's it! Your RTD is now ready for use. You should see a link on your screen in the form ***https://[name-of-project].firebaseio.com*** this is going to be the link we use to reference the database. Make sure to not share with anyone!
 
-# Helper.py Documentation
+# Helper File Documentation
 Helper.py is a class that contains a few helper methods that make life a bit more easier.
 Functionality includes connecting to wifi, synchronizing date and time, and timestamp generation.
 
@@ -103,7 +112,7 @@ helper_methods = helper()
 current_time_stamp = helper_methods.get_time_stamp()
 ```
 
-# Main.py Documentation
+# Main File Documentation
 The main file where you will write the bulk of your micro-controller code for data collection.
 The file already has some boiler plate code that helps you get quickly setup. All of the starting methods are defined in Helper.py.
 
@@ -167,3 +176,20 @@ Couple things to note about using urequests:
    ```
    
 # Getting your data from Firebase
+There are 2 quick ways to get your data.
+  1. Exporting your data as JSON.
+  2. Using the database url (similar to how we post data).
+
+Exporting data:
+  1. Click on the drop down you want to download. Using the example from [Storing into Firebase](#storing-into-firebase), if I wanted to download only my temperature data, I would click the temperature drop down. If I want to download all sensor data I would click on sensor_data.
+  2. On the right of your database console there are ***3 vertical dots***. Click them and click ***Export JSON***. 
+
+Using database url:
+In Python we can use the ***requests*** library to get our data (similar to urequest). This is meant to be used on an actual computer or some place like repl.
+
+Code Should look something like this:
+```
+import requests
+raw_res = requests.get('https://<my dbs url>.firebaseio.com/sensor_data/temperature.json')
+temp_json_data = raw_res.json()
+```
