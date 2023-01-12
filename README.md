@@ -129,5 +129,43 @@ Adding Sensor Driver:
   5. Done! Now you can import the sensor driver and use it.
 
 # Storing into Firebase
+Storing data into the Firebase RTDB is very straightfoward. All we need is the database link. Then we can use urequests and ujson to send your data over. urequests is what actually connect to firebase and does the sending over. ujson packages your data so it can be sent over.
+
+Couple things to note about using urequests:
+  - Need to be connected to the internet to work
+  - The way to store data in firebase is to use the dbs url + storage path. For example if we were to use the following URL ***https://\<my dbs url\>.firebaseio.com/sensor_data/temperature.json***. It will create the following in my dbs: Notice how there is a drop-down sensor_data and then another dropdown temperature that has all my data.
+  - Notice how at the end or the url I added ***.json***
+  - Make sure to ***close*** every connection. See examples below.
+
+  1. Open the RTDB you created from the [Setting up Firebase](#setting-up-firebase-account)
+  2. Copy (and do not share) your database link.
+  3. Package your data. EX:
+   ``` current_time = helper_methods.get_time_stamp()
+       temp = sensor.get_data()
+       package = ujson.dumps({'timestamp': current_time, 'temp': temp})
+   ```
+  4. Make the request to store.  EX:
+   ```
+       res = urequests.post('database url/path/to/store.json', data=package)
+       res.close()
+   ```
+   
+   Putthing it all together:
+   ```
+     # data collection + data storage should go in while loop
+     while True:
+      current_time = helper_methods.get_time_stamp()
+      temp = temp_sensor.get_data()
+      light = light_sensor.get_data()
+      temp_package = ujson.dumps({'timestamp': current_time, 'temp': temp})
+      light_package = ujson.dumps({'timestamp': current_time, 'light': light})
+      res_temp = urequests.post('https://<my dbs url>.firebaseio.com/sensor_data/temp.json', data=temp_package)
+      res_temp.close()
+      res_light = urequests.post('https://<my dbs url>.firebaseio.com/sensor_data/light.json', data=light_package)
+      res_light.close()
+      sleep_ms(1000)
+   ```
+   
+   
 
 # Getting your data from Firebase
