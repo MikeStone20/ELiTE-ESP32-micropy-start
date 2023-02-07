@@ -1,5 +1,6 @@
 from helper import helper
 from time import sleep_ms
+import ujson, urequests
 
 # Object to use helper methods
 helper_obj = helper()
