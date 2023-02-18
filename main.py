@@ -1,15 +1,16 @@
 from helper import helper
 from time import sleep_ms
-from machine import I2C
+from machine import I2C, Pin
 import ujson, urequests
+from ahtx0 import AHT10
 '''
 I2C object that allows controls communication between micro controller and sensors.
 27, 26 are pins on your esp32 board. Feel free to change to another pin.
 freq depends on the sensor you are deling with. 40K is a safe ballpark for most sensors.
 '''
 #I2C object to communicate with sensors
-i2c = I2C(1, 27, 26, freq=40000)
-
+i2c = I2C(0, scl=Pin(27), sda=Pin(26), freq=40000)
+temp_sensor = AHT10(i2c)
 # Object to use helper methods
 helper_obj = helper()
 
@@ -27,8 +28,8 @@ if rtc:
 
 # Add your setup below
 
-
 # data collection + data storage should go in while loop
 while True:
     print('Hello world')
     sleep_ms(1000)
+    print(temp_sensor.temperature())
