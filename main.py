@@ -19,7 +19,7 @@ helper_obj = helper()
 temp_sensor = AHT10(i2c)
 
 # Connects to wifi and synchronizes device time
-sta_if, rtc = helper_obj.self_calibrate('iStone', '', 'New_York')
+sta_if, rtc = helper_obj.self_calibrate('', '', 'New_York')
 
 # Checking if wifi connection succeeded
 if sta_if:
@@ -43,7 +43,7 @@ while True:
     
     if not sta_if.isconnected():
         print('Wifi got disconnected. Attempting to reconnect.')
-        helper_obj.wifi_connect('iStone', '')
+        helper_obj.wifi_connect('', '')
     
     res_humidity = None
     try:
